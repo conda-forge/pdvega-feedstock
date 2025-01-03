@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 3e7b3c3ad36f42e2289a93bca39336dd3bea2d24bcaf7323c4d5b8322fc3a017
 
 build:
   noarch: python
-  number: 2
+  number: 3
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
 
   run:
-    - python
+    - python >={{ python_min }}
     - ipython
     - pandas
     - vega3
@@ -32,6 +32,7 @@ test:
   requires:
     - jsonschema
     - pytest
+    - python {{ python_min }}
 
 about:
   home: http://jakevdp.github.io/pdvega/
